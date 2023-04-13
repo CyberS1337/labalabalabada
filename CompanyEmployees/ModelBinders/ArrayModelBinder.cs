@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Reflection;
 
-namespace CompanyEmployees.ModelBinders
+namespace LR_WEB_API.ModelBinders
 {
     public class ArrayModelBinder : IModelBinder
     {
@@ -25,7 +25,10 @@ namespace CompanyEmployees.ModelBinders
             bindingContext.ModelType.GetTypeInfo().GenericTypeArguments[0];
             var converter = TypeDescriptor.GetConverter(genericType);
             var objectArray = providedValue.Split(new[] { "," },
-            StringSplitOptions.RemoveEmptyEntries).Select(x => converter.ConvertFromString(x.Trim())).ToArray();
+            StringSplitOptions.RemoveEmptyEntries)
+
+            .Select(x => converter.ConvertFromString(x.Trim()))
+            .ToArray();
             var guidArray = Array.CreateInstance(genericType, objectArray.Length);
             objectArray.CopyTo(guidArray, 0);
             bindingContext.Model = guidArray;

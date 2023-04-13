@@ -1,6 +1,6 @@
 ﻿using Entities.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +25,11 @@ namespace Entities.Configuration
             new Company
             {
                 Id = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
-            Name = "Admin_Solutions Ltd",
+                Name = "Admin_Solutions Ltd",
                 Address = "312 Forest Avenue, BF 923",
                 Country = "USA"
             }
-            );
+ );
         }
     }
 }

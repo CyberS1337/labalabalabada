@@ -9,56 +9,20 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CompanyEmployees.Migrations
+namespace LR_WEB_API.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20221029142005_dbz")]
-    partial class dbz
+    [Migration("20221012113840_DatabaseCreation")]
+    partial class DatabaseCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Entities.Models.Animal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("AnimalId");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("AnimalName")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<int>("WeightKg")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Animals");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AnimalName = "Кот",
-                            WeightKg = 14
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AnimalName = "Собака",
-                            WeightKg = 3
-                        });
-                });
 
             modelBuilder.Entity("Entities.Models.Company", b =>
                 {
@@ -158,44 +122,98 @@ namespace CompanyEmployees.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Models.Product", b =>
+            modelBuilder.Entity("Entities.Models.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ProductId");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("OrdersId");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<double>("Cost")
+                        .HasColumnType("float");
 
-                    b.Property<int>("Cost")
-                        .HasColumnType("int");
+                    b.Property<long>("Date")
+                        .HasMaxLength(20)
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("NameProduct")
+                    b.Property<string>("Goods")
                         .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<Guid>("WarehouseId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("Order");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            Cost = 100,
-                            NameProduct = "Носки",
-                            Quantity = 4
+                            Id = new Guid("86abbca8-664d-4b20-b5de-024705497d4a"),
+                            Cost = 20.100000000000001,
+                            Date = 12102022L,
+                            Goods = "Каркасные шторки сетки на передние стекла ВАЗ (Лада)",
+                            WarehouseId = new Guid("8615e23f-2548-4ef7-a440-af6edc214fb0")
                         },
                         new
                         {
-                            Id = 2,
-                            Cost = 400,
-                            NameProduct = "Шапка",
-                            Quantity = 5
+                            Id = new Guid("87abbca8-664d-4b20-b5de-024705497d4a"),
+                            Cost = 203.09999999999999,
+                            Date = 12102022L,
+                            Goods = "Каркасные шторки сетки на передние стекла ВАЗ (Лада)",
+                            WarehouseId = new Guid("8615e23f-2548-4ef7-a440-af6edc214fb0")
+                        },
+                        new
+                        {
+                            Id = new Guid("88abbca8-664d-4b20-b5de-024705497d4a"),
+                            Cost = 210.09999999999999,
+                            Date = 12102022L,
+                            Goods = "Каркасные шторки сетки на передние стекла ВАЗ (Лада)",
+                            WarehouseId = new Guid("713a847a-2875-469d-aefb-fd7bb283a8d4")
+                        });
+                });
+
+            modelBuilder.Entity("Entities.Models.Warehouse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("WarehiusesId");
+
+                    b.Property<int>("Count")
+                        .HasMaxLength(60)
+                        .HasColumnType("int");
+
+                    b.Property<string>("GoodName")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Warehouse");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("8615e23f-2548-4ef7-a440-af6edc214fb0"),
+                            Count = 4,
+                            GoodName = "Tuning headlights for VAZ 2110",
+                            Price = 13490.0
+                        },
+                        new
+                        {
+                            Id = new Guid("713a847a-2875-469d-aefb-fd7bb283a8d4"),
+                            Count = 10,
+                            GoodName = "Diode PTFs Sal-Man 60w 5 strips on VAZ 2110)",
+                            Price = 3790.0
                         });
                 });
 
@@ -208,6 +226,17 @@ namespace CompanyEmployees.Migrations
                         .IsRequired();
 
                     b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("Entities.Models.Order", b =>
+                {
+                    b.HasOne("Entities.Models.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("Entities.Models.Company", b =>
