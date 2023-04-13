@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
 using System.Text;
 
-namespace CompanyEmployees
+namespace LR_WEB_API
 {
     public class CsvOutputFormatter : TextOutputFormatter
     {
@@ -23,7 +23,9 @@ namespace CompanyEmployees
             return false;
         }
         public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext
-            context, Encoding selectedEncoding)
+    
+
+        context, Encoding selectedEncoding)
         {
             var response = context.HttpContext.Response;
             var buffer = new StringBuilder();
@@ -42,7 +44,6 @@ namespace CompanyEmployees
         }
         private static void FormatCsv(StringBuilder buffer, CompanyDto company)
         {
-
             buffer.AppendLine($"{company.Id},\"{company.Name},\"{company.FullAddress}\"");
         }
     }

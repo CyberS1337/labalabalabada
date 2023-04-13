@@ -8,16 +8,18 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    public class Company
+    public class Warehouse
     {
-        [Column("CompanyId")]
+
+        [Column("WarehiusesId")]
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Company name is a required field.")]
-        [MaxLength(60, ErrorMessage = "Maximum length for the Name is 60 characters.")] public string Name { get; set; }
+        [MaxLength(60, ErrorMessage = "Maximum length for the Name is 60 characters.")] 
+        public string GoodName { get; set; }
         [Required(ErrorMessage = "Company address is a required field.")]
         [MaxLength(60, ErrorMessage = "Maximum length for rhe Address is 60 characte")]
-        public string Address { get; set; }
-        public string Country { get; set; }
-        public ICollection<Employee> Employees { get; set; }
+        public int Count { get; set; }
+        public double Price { get; set; }
+    
     }
 }

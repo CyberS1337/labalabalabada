@@ -13,8 +13,9 @@ namespace Repository
         private RepositoryContext _repositoryContext;
         private ICompanyRepository _companyRepository;
         private IEmployeeRepository _employeeRepository;
-        private IProductRepository _productRepository;
-        private IAnimalRepository _animalRepository;
+        private IOrderRepository _orderRepository;
+        private IWarehouseRepository _warehouseRepository;
+
         public RepositoryManager(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
@@ -37,25 +38,30 @@ namespace Repository
                 return _employeeRepository;
             }
         }
-        public IAnimalRepository Animal
+
+        public IOrderRepository Order
         {
             get
             {
-                if (_animalRepository == null)
-                    _animalRepository = new AnimalRepository(_repositoryContext);
-                return _animalRepository;
+                if (_orderRepository == null)
+                    _orderRepository = new OrderRepository(_repositoryContext);
+                return _orderRepository;
             }
         }
 
-        public IProductRepository Product
+        public IWarehouseRepository Warehouse
         {
             get
             {
-                if (_productRepository == null)
-                    _productRepository = new ProductRepository(_repositoryContext);
-                return _productRepository;
+                if (_warehouseRepository == null)
+                    _warehouseRepository = new WarehouseRepository(_repositoryContext);
+                return _warehouseRepository;
             }
         }
+
+
+
+
         public void Save() => _repositoryContext.SaveChanges();
     }
 }

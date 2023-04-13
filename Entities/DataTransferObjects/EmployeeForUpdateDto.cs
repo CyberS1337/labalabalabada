@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Entities.DataTransferObjects
 {
-    public class AnimalForCreationDto
+    public class EmployeeForUpdateDto
     {
         public string Name { get; set; }
-        public string Address { get; set; }
-        public string Country { get; set; }
-        public IEnumerable<ProductForCreationDto> Products { get; set; }
+        public int Age { get; set; }
+        public string Position { get; set; }
+
     }
+
 }
